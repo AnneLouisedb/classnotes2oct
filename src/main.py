@@ -15,8 +15,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
 
-data_dir = Path("/Users/annelouisedeboer/PycharmProjects/classnotes")
-full_data = pd.read_csv(data_dir / "wine_data.csv")
+full_data = pd.read_csv("/Users/annelouisedeboer/Documents/GitHub/classnotes2oct/src/wine_data.csv")
 # looking at data
 print(full_data.dtypes)
 print(full_data.columns)
@@ -24,8 +23,7 @@ print(full_data.columns)
 #second plotting figures
 full_data.plot(kind="scatter", x="alcohol", y="sulphates")
 
-
-#data = data.dropna()
+data = full_data.dropna()
 classifier = LabelEncoder()
 full_data["class"]= classifier.fit_transform(full_data["class"])
 data = full_data.dropna()
@@ -38,6 +36,12 @@ print(corr_matrix["class"].apply(abs).sort_values(ascending = False))
 attributes = ["alcohol", "volatile acidity", "citric acid", "sulphates", "density"]
 pd.plotting.scatter_matrix(full_data[attributes], figsize=(12,8))
 
+#finding groups
+data_1class = data[data["class"] == 1]
+data_2class = data[data["class"] == 0]
+print(data.min())
+print(f" minimum value class 1: {data_1class.min()}")
+print(f" minimum value class 0: {data_2class.min()}")
 # Training and Testing models
 Xtrain, Xtest, ytrain, ytest = train_test_split(
     data[["alcohol",
@@ -49,3 +53,11 @@ Xtrain, Xtest, ytrain, ytest = train_test_split(
 # training classifier
 #filter for values, are there any groups in the data
 # looking for groups in the data
+
+
+#USING GRIDSEARCH
+#Exhaustive search over specified parameter values for an estimator. Important members are fit, predict.
+#GridSearchCV implements a “fit” and a “score” method. It also implements “predict”, “predict_proba”, “decision_function”, “transform” and “inverse_transform”
+# if they are implemented in the estimator used.
+# The parameters of the estimator used to apply these
+# methods are optimized by cross-validated grid-search over a parameter grid.
