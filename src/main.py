@@ -40,8 +40,13 @@ pd.plotting.scatter_matrix(full_data[attributes], figsize=(12,8))
 data_1class = data[data["class"] == 1]
 data_2class = data[data["class"] == 0]
 print(data.min())
-print(f" minimum value class 1: {data_1class.min()}")
-print(f" minimum value class 0: {data_2class.min()}")
+poormin = data_1class.min()
+poormax = data_1class.max()
+goodmin = data_2class.min()
+goodmax = data_2class.max()
+# alcohol 8.4, volatile acidity: 0.16, citric acid: 0.0, sulphates: 0.33
+#data_r = {[goodmin], [goodmax], [poormin], [poormax]}
+#ranges = pd.DataFrame(data_r, columns = ["min of good", "max of good", "min of poor", "max of poor"])
 # Training and Testing models
 Xtrain, Xtest, ytrain, ytest = train_test_split(
     data[["alcohol",
